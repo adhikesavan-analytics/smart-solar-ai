@@ -28,13 +28,19 @@ if _DB_URL:
         _DB_URL = _DB_URL.replace("postgresql://", "postgresql+psycopg2://", 1)
     IS_PG = True
     engine: Engine = create_engine(_DB_URL, pool_pre_ping=True, pool_recycle=300)
-else:
-    IS_PG = False
-    sqlite_path = os.environ.get(
-        "SMARTBI_DB",
-        os.path.join(os.path.dirname(__file__), "..", "smartbi.db"),
-    )
-    engine = create_engine(f"sqlite:///{sqlite_path}", future=True)
+_DB_URL = os.environ.get("DATABASE_URL")
+
+if not _DB_URL:
+    raise Exception("DATABASE_URL not set. PostgreSQL is required.")
+
+# normalize URL
+if _DB_URL.startswith("postgres://"):
+    _DB_URL = _DB_URL.replace("postgres://", "postgresql+psycopg2://", 1)
+elif _DB_URL.startswith("postgresql://") and "+psycopg2" not in _DB_URL:
+    _DB_URL = _DB_URL.replace("postgresql://", "postgresql+psycopg2://", 1)
+
+IS_PG = True
+engine: Engine = create_engine(_DB_URL, pool_pre_ping=True, pool_recycle=300)
 
 
 # Helper: pick the right serial-PK and JSON storage column type per backend
