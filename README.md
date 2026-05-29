@@ -56,7 +56,7 @@ User → Authentication → Data Upload → Processing → Analytics → Alerts 
 ## ⚙️ How to Run Locally
 
 ```bash
-git clone https://github.com/your-username/smart-solar-ai.git
+git clone https://github.com/adhikesavan-analytics/smart-solar-ai.git
 cd smart-solar-ai
 pip install -r requirements.txt
 streamlit run app.py
