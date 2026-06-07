@@ -661,7 +661,7 @@ def tab_admin():
             cols[2].write(user.get("company_name") or "—")
             cols[3].write(user.get("department_name") or "—")
             cols[4].write(user.get("email") or "—")
-            if user["username"] != "admin":
+            if user["username"] != st.session_state["user"]["username"]:
                 if cols[5].button("Delete", key=f"du_{user['id']}"):
                     db.delete_user(user["id"]); st.rerun()
 
