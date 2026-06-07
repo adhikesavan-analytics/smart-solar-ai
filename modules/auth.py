@@ -5,10 +5,7 @@ check_login(username, password) -> role contract still works.
 """
 from modules import db
 
-USERS = {
-    "admin": {"password": "admin123", "role": "admin"},
-    "demo1": {"password": "password123", "role": "user"},
-}
+USERS = {}
 
 
 def check_login(username: str, password: str):
