@@ -199,13 +199,13 @@ def seed():
         _exec(c,
             "INSERT INTO users (username, password_hash, role, company_id, department_id, email, created_at) "
             "VALUES (:u, :p, :r, :c, :d, :e, :t)",
-            {"u": "admin", "p": hash_password("admin123"), "r": "admin",
+            {"u": "admin", "p": hash_password(os.environ.get("ADMIN_PASSWORD", "changeme")), "r": "admin",
              "c": cid, "d": dept_ids["Operations"], "e": admin_email, "t": now},
         )
         _exec(c,
             "INSERT INTO users (username, password_hash, role, company_id, department_id, email, created_at) "
             "VALUES (:u, :p, :r, :c, :d, :e, :t)",
-            {"u": "demo1", "p": hash_password("password123"), "r": "user",
+            {"u": "demo1", "p": hash_password(os.environ.get("DEMO_PASSWORD", "changeme")), "r": "user",
              "c": cid, "d": dept_ids["Sales"], "e": "demo1@example.com", "t": now},
         )
 
